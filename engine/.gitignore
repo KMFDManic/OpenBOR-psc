@@ -53,6 +53,7 @@ CTestTestfile.cmake
 
 #ARM and local system shell script Build folders
 build_arm/
+build_x64/
 build_sys/
 db/
 

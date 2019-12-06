@@ -461,6 +461,13 @@ static void initMenu(int type)
 	savedata.hwscale = 0.0f;
 #endif
 
+#ifdef PSC
+        isWide = 1;
+        isFull = 1;
+        bpp = 32;
+        savedata.hwscale = 0.0f;
+#endif
+
 	pixelformat = PIXEL_x8;
 
 	savedata.fullscreen = isFull;
@@ -473,6 +480,16 @@ static void initMenu(int type)
 	videomodes.vScale = 2.0f;
 	savedata.hwscale = 2.0f;
 	savedata.hwfilter = 1;
+#endif
+
+#ifdef PSC
+        videomodes.hRes = 1280;
+        videomodes.vRes = 720;
+        videomodes.pixel = pixelbytes[PIXEL_32];
+        videomodes.hScale = 2.0f;
+        videomodes.vScale = 2.0f;
+        savedata.hwscale = 2.0f;
+        savedata.hwfilter = 1;
 #endif
 	vscreen = allocscreen(videomodes.hRes, videomodes.vRes, PIXEL_32);
 
@@ -559,7 +576,7 @@ static void drawMenu()
 #endif
 	//CRxTRDude - Fixed the placement of these texts and appropriately changed the site for Chrono Crash
   printText((isWide ? 320 : 188),(isWide ? 175 : 158), BLACK, 0, 0, "www.chronocrash.com");
-	printText((isWide ? 322 : 190),(isWide ? 185 : 168), BLACK, 0, 0, "www.SenileTeam.com");
+	printText((isWide ? 322 : 190),(isWide ? 185 : 168), BLACK, 0, 0, "www.AutoBleem.tk");
 
 #ifdef SPK_SUPPORTED
 	printText((isWide ? 324 : 192),(isWide ? 191 : 176), DARK_RED, 0, 0, "SecurePAK Edition");
