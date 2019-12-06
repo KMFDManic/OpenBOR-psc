@@ -461,12 +461,6 @@ static void initMenu(int type)
 	savedata.hwscale = 0.0f;
 #endif
 
-#ifdef PSC
-        isWide = 1;
-        isFull = 1;
-        bpp = 32;
-        savedata.hwscale = 0.0f;
-#endif
 
 	pixelformat = PIXEL_x8;
 
@@ -482,14 +476,9 @@ static void initMenu(int type)
 	savedata.hwfilter = 1;
 #endif
 
-#ifdef PSC
-        videomodes.hRes = 1280;
-        videomodes.vRes = 720;
-        videomodes.pixel = pixelbytes[PIXEL_32];
-        videomodes.hScale = 2.0f;
-        videomodes.vScale = 2.0f;
-        savedata.hwscale = 2.0f;
-        savedata.hwfilter = 1;
+#if PSC
+	isWide=true;
+
 #endif
 	vscreen = allocscreen(videomodes.hRes, videomodes.vRes, PIXEL_32);
 

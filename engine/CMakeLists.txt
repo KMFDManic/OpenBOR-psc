@@ -24,7 +24,7 @@ include_directories(${SDL2_INCLUDE_DIRS})
 endif()
 
 find_package(Threads REQUIRED)
-add_definitions(-DSDL2 -DLINUX -DDEBUG -DSDL=1 -DOV_EXCLUDE_STATIC_CALLBACKS -DWEBM -DPSC)
+add_definitions(-DSDL2 -DLINUX -DDEBUG -DSDL=1 -DOV_EXCLUDE_STATIC_CALLBACKS -DWEBM -DPSC )
  
 add_executable(
         OpenBOR

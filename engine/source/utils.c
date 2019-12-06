@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <locale.h>
 #include <math.h>
 
@@ -304,7 +304,7 @@ void *checkAlloc(void *ptr, size_t size, const char *func, const char *file, int
         writeToLogFile("Out of memory!\n");
         writeToLogFile("Allocation of size %i failed in function '%s' at %s:%i.\n", size, func, file, line);
 #ifndef WIN
-        writeToLogFile("Memory usage at exit: %u\n", mallinfo().arena);
+      //  writeToLogFile("Memory usage at exit: %u\n", mallinfo().arena);
 #endif
         borExit(2);
     }

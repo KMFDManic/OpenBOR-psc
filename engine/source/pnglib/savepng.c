@@ -7,7 +7,7 @@
  */
 
 #include <png.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include "globals.h"
 #include "screen.h"
 

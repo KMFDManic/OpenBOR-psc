@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <time.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <errno.h>
 #include "List.h"
 #include "pp_parser.h"
