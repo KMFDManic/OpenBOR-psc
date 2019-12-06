@@ -1,4 +1,4 @@
-
+#
 # OpenBOR - http://www.ChronoCrash.com
 # ---------------------------------------------------------------------------------------------------
 # All rights reserved, see LICENSE in OpenBOR root for details.
@@ -13,11 +13,6 @@
 #             PSP, PS3, Wii, Pandora, Windows, Darwin & Linux
 #
 #----------------------------------------------------------------------------------------------------
-CC=armv8-sony-linux-gnueabihf-gcc
-
-CFLAGS=-I /home/screemer/x-tools/armv8-sony-linux-gnueabihf/armv8-sony-linux-gnueabihf/sysroot/usr/include  
- 
-
 
 ifndef VERSION_NAME
 VERSION_NAME = OpenBOR
@@ -85,13 +80,25 @@ BUILD_SDL_IO    = 1
 BUILD_VORBIS    = 1
 BUILD_WEBM      = 1
 BUILDING        = 1
+YASM 	        = yasm
 CC  	        = $(LNXDEV)/$(PREFIX)gcc
 OBJTYPE         = elf
-INCLUDES        = /home/screemer/x-tools/armv8-sony-linux-gnueabihf/armv8-sony-linux-gnueabihf/sysroot/usr/include
-TARGET_ARCH     = arm
-ARCHFLAGS       = -mfloat-abi=hard -march=armv7ve -Os -s
-LIBRARIES       = /home/screemer/x-tools/armv8-sony-linux-gnueabihf/armv8-sony-linux-gnueabihf/sysroot/usr/lib
+INCLUDES        = $(SDKPATH)/include
+ifeq ($(findstring 64, $(GCC_TARGET)), 64)
+TARGET_ARCH     = amd64
+BUILD_AMD64     = 1
+ARCHFLAGS       = -m64
+LIBRARIES       = $(SDKPATH)/lib/$(GCC_TARGET)
+CFLAGS          += -DAMD64
+else
+TARGET_ARCH     = x86
+ARCHFLAGS       = -m32
+LIBRARIES       = $(SDKPATH)/lib32
+BUILD_MMX       = 1
+endif
+ifeq ($(BUILD_LINUX), 0)
 BUILD_DEBUG     = 1
+endif
 endif
 
 ifdef BUILD_DARWIN
@@ -226,7 +233,7 @@ endif
 
 
 ifdef BUILD_LINUX
-INCS           += 
+INCS           += 'libpng-config --prefix'/include/libpng
 endif
 
 
@@ -442,7 +449,7 @@ CFLAGS 	       += -g -Wall -Werror -fsigned-char -std=gnu99
 
 ifndef BUILD_DARWIN
 ifdef BUILD_LINUX
-CFLAGS         += -Wno-unused-result 
+CFLAGS         += -Wno-unused-result `pkg-config sdl2 --cflags`
 endif
 endif
 
@@ -655,13 +662,12 @@ all : $(TARGET) $(TARGET_FINAL)
 	@echo Compiling $(TARGET_PLATFORM) Port: $<...
 	@$(YASM) -D $(TARGET_PLATFORM) -f $(OBJTYPE) -m $(TARGET_ARCH) -o $@ $<
 %.o : %.c
-	@echo $(CFLAGS)
 	@echo Compiling $(TARGET_PLATFORM) Port: $<...
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) -v $(CFLAGS) -c $< -o $@
 $(TARGET) : $(OBJS) $(RES)
 	@echo
 	@echo Linking $(TARGET_PLATFORM) Port: $(TARGET)...
-	@$(CC) -v -L/home/screemer/x-tools/armv8-sony-linux-gnueabihf/armv8-sony-linux-gnueabihf/sysroot/usr/lib $(CFLAGS) -o $(TARGET) $(OBJS) $(TARGET_RESOURCE) $(LIBS)
+	@$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(TARGET_RESOURCE) $(LIBS)
 $(TARGET_FINAL) : $(TARGET)
 	@echo Stripping $(TARGET_PLATFORM) Port: $(TARGET_FINAL)...
 	@$(STRIP)
@@ -707,7 +713,7 @@ all : OpenBOR.vpk
 OpenBOR.elf : $(OBJS) $(RES)
 	@echo
 	@echo Linking $(TARGET_PLATFORM) Port: $(TARGET)...
-	@$(CC) -v $(CFLAGS) -o $(TARGET) $(OBJS) $(TARGET_RESOURCE) $(LIBS)
+	@$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(TARGET_RESOURCE) $(LIBS)
 %.velf: %.elf
 	vita-elf-create $< $@
 eboot.bin: $(VERSION_NAME).velf
@@ -758,7 +764,7 @@ clean-releases:
 clean:
 	@echo
 	@echo "Removing All $(TARGET_PLATFORM) Files..."
-	rm -f $(TARGET) $(TARGET_FINAL) $(TARGET_MAP) PARAM.SFO param.sfo eboot.bin OpenBOR.velf linkmap $(OBJS)
+	@rm -f $(TARGET) $(TARGET_FINAL) $(TARGET_MAP) PARAM.SFO param.sfo eboot.bin OpenBOR.velf linkmap $(OBJS)
 	@echo Done!
 	@echo
 endif

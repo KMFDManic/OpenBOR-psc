@@ -26,6 +26,7 @@ endif()
 find_package(Threads REQUIRED)
 add_definitions(-DSDL2 -DLINUX -DDEBUG -DSDL=1 -DOV_EXCLUDE_STATIC_CALLBACKS -DWEBM -DPSC)
  
+
 add_executable(
         OpenBOR
         openbor.c
@@ -115,7 +116,8 @@ add_executable(
  source/webmlib/samplecvt.c
  source/webmlib/yuv.c
  source/webmlib/halloc/halloc.c
-  source/webmlib/nestegg/nestegg.c
+ source/webmlib/nestegg/nestegg.c
+ 
 )
 
 
