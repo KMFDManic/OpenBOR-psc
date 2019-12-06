@@ -10,6 +10,9 @@
 # Building script for all platforms
 # build.sh by SX (SumolX@gmail.com)
 
+CFLAGS="--sysroot=/home/screemer/x-tools/armv8-sony-linux-gnueabihf/armv8-sony-linux-gnueabihf/sysroot"
+LDLAGS="--sysroot=/home/screemer/x-tools/armv8-sony-linux-gnueabihf/armv8-sony-linux-gnueabihf/sysroot"
+
 # Used for resetting path prior to each platform.
 export OLD_PATH=$PATH
 
@@ -196,12 +199,18 @@ function linux_amd64 {
   fi
 }
 
+function linux_psc {
+   linux armv8-sony-linux-gnueabihf armv7ve  LINUX_ARM # try 32-bit compiler with multilib
+}
+
 function linux_something {
   if [ ! $1 -o $1 = x86 ]; then
     linux_x86
   elif [ $1 = amd64 ]; then
     linux_amd64
-  else
+  elif [ $1 = psc ]; then
+    linux_psc
+  else 
     echo "Error: unknown Linux architecture '$1'"
   fi
 }

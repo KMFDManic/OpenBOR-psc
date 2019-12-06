@@ -80,17 +80,27 @@ static unsigned pixelformats[4] = {SDL_PIXELFORMAT_INDEX8, SDL_PIXELFORMAT_BGR56
 
 int SetVideoMode(int w, int h, int bpp, bool gl)
 {
-	int flags = SDL_WINDOW_SHOWN | SDL_WINDOW_INPUT_FOCUS;
+	
+// PSC - Force Fullscreen always 720p
+        w=1280;
+        h=720;
+        if (gl!=0)
+	{
+return 0;
+	}
+	int flags = 0; //SDL_WINDOW_SHOWN | SDL_WINDOW_INPUT_FOCUS;
 	static bool last_gl = false;
 	static int last_x = SDL_WINDOWPOS_UNDEFINED;
 	static int last_y = SDL_WINDOWPOS_UNDEFINED;
 
 	if(gl) flags |= SDL_WINDOW_OPENGL;
-	if(savedata.fullscreen) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+        // PSC Always fullscreen
+        flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
+/*
 	if(!(SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN_DESKTOP))
 		SDL_GetWindowPosition(window, &last_x, &last_y);
-
+*/
 	if(window && gl != last_gl)
 	{
 		SDL_DestroyWindow(window);
@@ -111,33 +121,27 @@ int SetVideoMode(int w, int h, int bpp, bool gl)
 		}
 		else
 		{
-#ifndef WIN // hiding and showing the window is problematic on Windows
-			if(SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN_DESKTOP)
-				SDL_HideWindow(window);
-#endif
-			SDL_SetWindowFullscreen(window, 0);
-			SDL_SetWindowSize(window, w, h);
-			SDL_SetWindowPosition(window, last_x, last_y);
-			SDL_ShowWindow(window);
+ SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 		}
 	}
 	else
 	{
-		window = SDL_CreateWindow(windowTitle, last_x, last_y, w, h, flags);
+		printf("Trying to open window: %d x %d openGL-%d flags-%d \n",w,h,gl,flags);
+		window = SDL_CreateWindow("BOR", last_x, last_y, w, h, flags);
 		if(!window)
 		{
 			printf("Error: failed to create window: %s\n", SDL_GetError());
 			return 0;
 		}
-		SDL_Surface* icon = (SDL_Surface*)pngToSurface((void*)openbor_icon_32x32_png.data);
-		SDL_SetWindowIcon(window, icon);
-		SDL_FreeSurface(icon);
+		//SDL_Surface* icon = (SDL_Surface*)pngToSurface((void*)openbor_icon_32x32_png.data);
+		//SDL_SetWindowIcon(window, icon);
+		//SDL_FreeSurface(icon);
 		if(!savedata.fullscreen) SDL_GetWindowPosition(window, &last_x, &last_y);
 	}
 
 	if(!gl)
 	{
-		renderer = SDL_CreateRenderer(window, -1, savedata.vsync ? SDL_RENDERER_PRESENTVSYNC : 0);
+		renderer = SDL_CreateRenderer(window, -1, (savedata.vsync ? SDL_RENDERER_PRESENTVSYNC : 0) | SDL_RENDERER_ACCELERATED);
 		if(!renderer)
 		{
 			printf("Error: failed to create renderer: %s\n", SDL_GetError());
