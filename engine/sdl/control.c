@@ -347,7 +347,7 @@ char* get_joystick_name(const char* name)
     {
         lname[i] = tolower(lname[i]);
     }
-    if ( strstr(lname, "null") == NULL ) return JOY_UNKNOWN_NAME;
+    if ( strstr(lname, "null") != NULL ) return JOY_UNKNOWN_NAME;
     return ( (char*)name );
 }
 

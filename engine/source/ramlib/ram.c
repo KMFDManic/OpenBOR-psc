@@ -16,6 +16,10 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // Libraries
+#if __APPLE__
+#define DARWIN 1
+
+#endif
 
 #ifdef WIN
 #define _WIN32_WINNT 0x0500
@@ -37,7 +41,7 @@
 #include <stdlib.h>
 #endif
 
-#include <malloc.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include "globals.h"
@@ -246,3 +250,6 @@ void getRamStatus(int byte_size)
            used_ram, used_ram >> 20);
 }
 
+#ifdef DARWIN
+#undef DARWIN
+#endif
