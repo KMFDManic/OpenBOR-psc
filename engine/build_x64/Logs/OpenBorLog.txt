@@ -1,0 +1,5 @@
+Total Ram:  4136415232 Bytes (  3944 MB )
+ Free Ram:   618803200 Bytes (   590 MB )
+ Used Ram:    15276544 Bytes (    14 MB )
+
+SDL Failed to Init!!!! (No available video device)

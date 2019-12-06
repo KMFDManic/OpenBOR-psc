@@ -655,6 +655,7 @@ all : $(TARGET) $(TARGET_FINAL)
 	@echo Compiling $(TARGET_PLATFORM) Port: $<...
 	@$(YASM) -D $(TARGET_PLATFORM) -f $(OBJTYPE) -m $(TARGET_ARCH) -o $@ $<
 %.o : %.c
+	@echo $(CFLAGS)
 	@echo Compiling $(TARGET_PLATFORM) Port: $<...
 	@$(CC) $(CFLAGS) -c $< -o $@
 $(TARGET) : $(OBJS) $(RES)
