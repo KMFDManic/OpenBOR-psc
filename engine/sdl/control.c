@@ -8,6 +8,7 @@
 
 // Generic control stuff (keyboard+joystick)
 
+#include <signal.h>
 #include "video.h"
 #include "globals.h"
 #include "control.h"
@@ -61,9 +62,10 @@ void getPads(Uint8* keystate, Uint8* keystate_def)
 					video_fullscreen_flip();
 					keystate[SDL_SCANCODE_RETURN] = 0;
 				}
-				if (lastkey == SDL_SCANCODE_SLEEP)
+				if (lastkey == SDL_SCANCODE_SLEEP || lastkey == SDL_SCANCODE_F9)
                 {
-                    borShutdown(0, DEFAULT_SHUTDOWN_MESSAGE);
+                    //borShutdown(0, DEFAULT_SHUTDOWN_MESSAGE);
+                    raise(SIGTERM);
                 }
 				if(lastkey != SDL_SCANCODE_F10) break;
 #else
