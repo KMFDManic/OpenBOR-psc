@@ -97,7 +97,7 @@ static void getAllLogs()
 	ptrdiff_t i, j, k;
 	for(i=0; i<2; i++)
 	{
-		logfile[i].buf = NULL;readFromLogFile(i);
+		logfile[i].buf = NULL;//readFromLogFile(i);
 		if(logfile[i].buf != NULL)
 		{
 			logfile[i].pos = malloc(++logfile[i].rows * sizeof(int));
@@ -359,7 +359,7 @@ static int ControlMenu()
 
 		case FLAG_JUMP:
 			//drawLogs();
-			status = 3;
+			//status = 3;
 			break;
 
 		default:
@@ -561,7 +561,7 @@ static void drawMenu()
 #else
 	printText((isWide ? 23 : 4),(isWide ? 251 : 226), WHITE, 0, 0, "%s: Start Game", control_getkeyname(savedata.keys[0][SDID_ATTACK]));
 	printText((isWide ? 150 : 84),(isWide ? 251 : 226), WHITE, 0, 0, "%s: BGM Player", control_getkeyname(savedata.keys[0][SDID_ATTACK2]));
-	printText((isWide ? 270 : 164),(isWide ? 251 : 226), WHITE, 0, 0, "%s: View Logs", control_getkeyname(savedata.keys[0][SDID_JUMP]));
+	//printText((isWide ? 270 : 164),(isWide ? 251 : 226), WHITE, 0, 0, "%s: View Logs", control_getkeyname(savedata.keys[0][SDID_JUMP]));
 	printText((isWide ? 390 : 244),(isWide ? 251 : 226), WHITE, 0, 0, "%s: Quit Game", control_getkeyname(savedata.keys[0][SDID_SPECIAL]));
 #endif
 	//CRxTRDude - Fixed the placement of these texts and appropriately changed the site for Chrono Crash
