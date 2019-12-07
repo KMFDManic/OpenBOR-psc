@@ -18,9 +18,9 @@
 #include "stringptr.h"
 
 #include "pngdec.h"
-#include "../resources/OpenBOR_Logo_480x272_png.h"
+#include "../resources/OpenBOR_Logo_480x272-AB.png.h"
 #include "../resources/OpenBOR_Logo_320x240_png.h"
-#include "../resources/OpenBOR_Menu_480x272_png.h"
+#include "../resources/OpenBOR_Menu_480x272-AB.png.h"
 #include "../resources/OpenBOR_Menu_320x240_png.h"
 // CRxTRDude - Added the log screen pngs
 #include "../resources/logviewer_480x272_png.h"
@@ -487,9 +487,9 @@ static void initMenu(int type)
 
 	// Read Logo or Menu from Array.
 	if(!type)
-		bgscreen = pngToScreen(isWide ? (void*) openbor_logo_480x272_png.data : (void*) openbor_logo_320x240_png.data);
+		bgscreen = pngToScreen(isWide ? (void*) openbor_logo_480x272ab_png.data : (void*) openbor_logo_320x240_png.data);
 	else
-		bgscreen = pngToScreen(isWide ? (void*) openbor_menu_480x272_png.data : (void*) openbor_menu_320x240_png.data);
+		bgscreen = pngToScreen(isWide ? (void*) openbor_menu_480x272ab_png.data : (void*) openbor_menu_320x240_png.data);
 	// CRxTRDude - Initialize log screen images
 	logscreen = pngToScreen(isWide ? (void*) logviewer_480x272_png.data : (void*) logviewer_320x240_png.data);
 

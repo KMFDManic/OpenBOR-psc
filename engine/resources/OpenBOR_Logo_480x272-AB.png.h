@@ -1,10 +1,9 @@
-#ifndef _OPENBOR_LOGO_480X272-AB_PNG_H_
-#define _OPENBOR_LOGO_480X272-AB_PNG_H_
+#pragma once
 
 static const struct {
 	size_t size;
 	unsigned char data [243352];
-} openbor_logo_480x272-ab_png = {
+} openbor_logo_480x272ab_png = {
 	243352,
 "\x89""PNG""\15\12\32\12\0\0\0\15""IHDR""\0\0\1\xE0\0\0\1\20\10\6\0\0\0""hF""\xA7\x8C\0\0\0\6""bKGD""\0"
 "\0\0\0\0\0\xF9\x43\xBB\x7F\0\0\0\11""pHYs""\0\0\13\23\0\0\13\23\1\0\x9A\x9C\30\0\0\0\7""tIME""\7\xE3"
@@ -8466,5 +8465,3 @@ static const struct {
 "\xBF\x46\x7F\x66\xC4""$7""\xD4\x55\x85\xAD\12\xC5\xD1\67\15\x8B\56\xD2\17\x99\xF1\x64\x93""ew""\xFB"
 "\53\xFE\71\xFC\37\0\xA8\17\x60\x88\xBE""LD""\0\0\0\0""IEND""\xAE\x42\x60\x82"
 };
-
-#endif
