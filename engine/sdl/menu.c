@@ -536,7 +536,7 @@ static void drawMenu()
 		{
 		    int len = strlen(filelist[list+dListScrollPosition].filename)-4;
 			shift = 0;
-			colors = GRAY;
+			colors = BLACK;
 			strncpy(listing, "", (isWide ? 44 : 28));
 			if(len < (isWide ? 44 : 28))
                 safe_strncpy(listing, filelist[list+dListScrollPosition].filename, len);
@@ -552,7 +552,7 @@ static void drawMenu()
 		}
 	}
 
-	printText((isWide ? 26 : 5), (isWide ? 11 : 4), WHITE, 0, 0, "OpenBoR %s", VERSION);
+    printText((isWide ? 26 : 5), (isWide ? 11 : 4), WHITE, 0, 0, "OpenBoR-PSC Xtreme %s", VERSION);
 	printText((isWide ? 392 : 261),(isWide ? 11 : 4), WHITE, 0, 0, __DATE__);
 		//CRxTRDude - Fix for Android's text - Main menu
 #ifdef ANDROID
@@ -614,7 +614,7 @@ static void drawBGMPlayer()
 		}
 	}
 
-	printText((isWide ? 26 : 5), (isWide ? 11 : 4), WHITE, 0, 0, "OpenBoR %s", VERSION);
+	printText((isWide ? 26 : 5), (isWide ? 11 : 4), WHITE, 0, 0, "OpenBoR-PSC Xtreme %s", VERSION);
 	printText((isWide ? 392 : 261),(isWide ? 11 : 4), WHITE, 0, 0, __DATE__);
 //CRxTRDude - Fix for Android's text - BGM MODE
 #ifdef ANDROID
