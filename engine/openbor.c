@@ -2423,6 +2423,7 @@ void clearbuttons(int player)
 
     if (player == 0)
     {
+
         savedata.keys[0][SDID_MOVEUP]    = CONTROL_DEFAULT1_UP;
         savedata.keys[0][SDID_MOVEDOWN]  = CONTROL_DEFAULT1_DOWN;
         savedata.keys[0][SDID_MOVELEFT]  = CONTROL_DEFAULT1_LEFT;
@@ -2435,8 +2436,25 @@ void clearbuttons(int player)
         savedata.keys[0][SDID_SPECIAL]   = CONTROL_DEFAULT1_FIRE6;
         savedata.keys[0][SDID_START]     = CONTROL_DEFAULT1_START;
         savedata.keys[0][SDID_SCREENSHOT] = CONTROL_DEFAULT1_SCREENSHOT;
+
+#if PSC
+
+        savedata.keys[0][SDID_MOVEUP]    = CONTROL_DEFAULT_PSC_UP;
+        savedata.keys[0][SDID_MOVEDOWN]  = CONTROL_DEFAULT_PSC_DOWN;
+        savedata.keys[0][SDID_MOVELEFT]  = CONTROL_DEFAULT_PSC_LEFT;
+        savedata.keys[0][SDID_MOVERIGHT] = CONTROL_DEFAULT_PSC_RIGHT;
+            savedata.keys[0][SDID_ATTACK]    = CONTROL_DEFAULT_PSC_FIRE1;
+            savedata.keys[0][SDID_ATTACK2]   = CONTROL_DEFAULT_PSC_FIRE2;
+            savedata.keys[0][SDID_ATTACK3]   = CONTROL_DEFAULT_PSC_FIRE3;
+            savedata.keys[0][SDID_ATTACK4]   = CONTROL_DEFAULT_PSC_FIRE4;
+            savedata.keys[0][SDID_JUMP]      = CONTROL_DEFAULT_PSC_FIRE5;
+            savedata.keys[0][SDID_SPECIAL]   = CONTROL_DEFAULT_PSC_FIRE6;
+            savedata.keys[0][SDID_START]     = CONTROL_DEFAULT_PSC_START;
+            savedata.keys[0][SDID_SCREENSHOT] = CONTROL_DEFAULT_PSC_SCREENSHOT;
+
+#endif
         #ifdef SDL
-            //savedata.keys[0][SDID_ESC]       = CONTROL_DEFAULT1_ESC;
+           // savedata.keys[0][SDID_ESC]       = CONTROL_DEFAULT1_ESC;
         #endif
 
         /* *************** SET DEFAULT KEYS *************** */
@@ -2453,6 +2471,24 @@ void clearbuttons(int player)
         default_keys[SDID_SPECIAL]   = CONTROL_DEFAULT1_FIRE6;
         default_keys[SDID_START]     = CONTROL_DEFAULT1_START;
         default_keys[SDID_SCREENSHOT] = CONTROL_DEFAULT1_SCREENSHOT;
+
+#if PSC
+        default_keys[SDID_MOVEUP]    = CONTROL_DEFAULT_PSC_UP;
+        default_keys[SDID_MOVEDOWN]  = CONTROL_DEFAULT_PSC_DOWN;
+        default_keys[SDID_MOVELEFT]  = CONTROL_DEFAULT_PSC_LEFT;
+        default_keys[SDID_MOVERIGHT] = CONTROL_DEFAULT_PSC_RIGHT;
+        default_keys[SDID_ATTACK]    = CONTROL_DEFAULT_PSC_FIRE1;
+        default_keys[SDID_ATTACK2]   = CONTROL_DEFAULT_PSC_FIRE2;
+        default_keys[SDID_ATTACK3]   = CONTROL_DEFAULT_PSC_FIRE3;
+        default_keys[SDID_ATTACK4]   = CONTROL_DEFAULT_PSC_FIRE4;
+        default_keys[SDID_JUMP]      = CONTROL_DEFAULT_PSC_FIRE5;
+        default_keys[SDID_SPECIAL]   = CONTROL_DEFAULT_PSC_FIRE6;
+        default_keys[SDID_START]     = CONTROL_DEFAULT_PSC_START;
+        default_keys[SDID_SCREENSHOT] = CONTROL_DEFAULT_PSC_SCREENSHOT;
+#endif
+
+
+
 
         control_setkey(&default_control, FLAG_ESC,        CONTROL_ESC);
         control_setkey(&default_control, FLAG_MOVEUP,     default_keys[SDID_MOVEUP]);
@@ -2640,6 +2676,28 @@ void loadsettings()
         return;
     }
     fread(&savedata, 1, sizeof(savedata), handle);
+    for (int i=0;i<13;i++)
+    {
+        printf("Savedata key: %d value: %d \n",i,savedata.keys[0][i]);
+    }
+
+    //savedata.keys;
+
+#if PSC
+    savedata.keys[0][SDID_MOVEUP]    = CONTROL_DEFAULT_PSC_UP;
+    savedata.keys[0][SDID_MOVEDOWN]  = CONTROL_DEFAULT_PSC_DOWN;
+    savedata.keys[0][SDID_MOVELEFT]  = CONTROL_DEFAULT_PSC_LEFT;
+    savedata.keys[0][SDID_MOVERIGHT] = CONTROL_DEFAULT_PSC_RIGHT;
+    savedata.keys[0][SDID_ATTACK]    = CONTROL_DEFAULT_PSC_FIRE1;
+    savedata.keys[0][SDID_ATTACK2]   = CONTROL_DEFAULT_PSC_FIRE2;
+    savedata.keys[0][SDID_ATTACK3]   = CONTROL_DEFAULT_PSC_FIRE3;
+    savedata.keys[0][SDID_ATTACK4]   = CONTROL_DEFAULT_PSC_FIRE4;
+    savedata.keys[0][SDID_JUMP]      = CONTROL_DEFAULT_PSC_FIRE5;
+    savedata.keys[0][SDID_SPECIAL]   = CONTROL_DEFAULT_PSC_FIRE6;
+    savedata.keys[0][SDID_START]     = CONTROL_DEFAULT_PSC_START;
+    savedata.keys[0][SDID_SCREENSHOT] = CONTROL_DEFAULT_PSC_SCREENSHOT;
+#endif
+
     fclose(handle);
     if(savedata.compatibleversion != COMPATIBLEVERSION)
     {
@@ -2665,6 +2723,20 @@ void loadfromdefault()
     }
     fread(&savedata, 1, sizeof(savedata), handle);
     fclose(handle);
+#if PSC
+    savedata.keys[0][SDID_MOVEUP]    = CONTROL_DEFAULT_PSC_UP;
+    savedata.keys[0][SDID_MOVEDOWN]  = CONTROL_DEFAULT_PSC_DOWN;
+    savedata.keys[0][SDID_MOVELEFT]  = CONTROL_DEFAULT_PSC_LEFT;
+    savedata.keys[0][SDID_MOVERIGHT] = CONTROL_DEFAULT_PSC_RIGHT;
+    savedata.keys[0][SDID_ATTACK]    = CONTROL_DEFAULT_PSC_FIRE1;
+    savedata.keys[0][SDID_ATTACK2]   = CONTROL_DEFAULT_PSC_FIRE2;
+    savedata.keys[0][SDID_ATTACK3]   = CONTROL_DEFAULT_PSC_FIRE3;
+    savedata.keys[0][SDID_ATTACK4]   = CONTROL_DEFAULT_PSC_FIRE4;
+    savedata.keys[0][SDID_JUMP]      = CONTROL_DEFAULT_PSC_FIRE5;
+    savedata.keys[0][SDID_SPECIAL]   = CONTROL_DEFAULT_PSC_FIRE6;
+    savedata.keys[0][SDID_START]     = CONTROL_DEFAULT_PSC_START;
+    savedata.keys[0][SDID_SCREENSHOT] = CONTROL_DEFAULT_PSC_SCREENSHOT;
+#endif
     if(savedata.compatibleversion != COMPATIBLEVERSION)
     {
         clearsettings();

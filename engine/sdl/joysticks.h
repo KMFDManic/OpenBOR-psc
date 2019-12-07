@@ -44,6 +44,7 @@ typedef struct{
 	int NumHats;
 	int NumAxes;
 	int NumButtons;
+	bool IsPSC;
 	u32 Hats;
 	u32 Axes;
 	u32 Buttons;
@@ -53,10 +54,11 @@ extern s_joysticks joysticks[JOY_LIST_TOTAL];
 
 
 extern const char *JoystickKeyName[JOY_NAME_SIZE];
+extern const char *PSCKeyName[JOY_NAME_SIZE];
 extern const char *GameparkKeyName[JOY_NAME_SIZE];
 extern const u64 JoystickBits[JOY_MAX_INPUTS + 1];
 
-const char* PC_GetJoystickKeyName(int portnum, int keynum);
+const char* PC_GetJoystickKeyName(int portnum, int keynum, bool isPSC);
 char* JOY_GetKeyName(int keycode);
 
 

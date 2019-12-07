@@ -11,45 +11,42 @@
 
 s_joysticks joysticks[JOY_LIST_TOTAL];
 
-const char *PSCButtonName[JOY_NAME_SIZE] = {
+
+const char* JoystickButtonNames[JOY_NAME_SIZE] = {
         "...",
-#define JOYSTICK_NAMES(x) \
-	x" Triangle",             \
-	x" Circle",          \
-	x" Cross",           \
-	x" Square",           \
-	x" L2",       \
-	x" R2",       \
-	x" L1",       \
-	x" R1",       \
-	x" Select",       \
-	x" Start",       \
+#define BUTTON_NAMES(x) \
 	x" Button 1",       \
 	x" Button 2",       \
 	x" Button 3",       \
-	x" Button 10",       \
-	x" Button 11",       \
-	x" Button 12",       \
-	x" Button 13",       \
-	x" Button 14",       \
-	x" Button 15",       \
-	x" Button 16",       \
-	x" Button 17",       \
-	x" Button 18",       \
-	x" Button 19",       \
-	x" Button 20",       \
-	x" Button 21",       \
-	x" Button 22",       \
-	x" Button 23",       \
-	x" Button 24",       \
-	x" Button 25",       \
-	x" Button 26",       \
-	x" Button 27",       \
-	x" Button 28",       \
-	x" Button 29",       \
-	x" Button 30",       \
-	x" Button 31",       \
-	x" Button 32",       \
+	x" Button 4",       \
+	x" Button 5",       \
+	x" Button 6",       \
+	x" Button 7",       \
+	x" Button 8",       \
+	x" Button 9",       \
+	x" Button 10",      \
+	x" Button 11",      \
+	x" Button 12",      \
+	x" Button 13",      \
+	x" Button 14",      \
+	x" Button 15",      \
+	x" Button 16",      \
+	x" Button 17",      \
+	x" Button 18",      \
+	x" Button 19",      \
+	x" Button 20",      \
+	x" Button 21",      \
+	x" Button 22",      \
+	x" Button 23",      \
+	x" Button 24",      \
+	x" Button 25",      \
+	x" Button 26",      \
+	x" Button 27",      \
+	x" Button 28",      \
+	x" Button 29",      \
+	x" Button 30",      \
+	x" Button 31",      \
+	x" Button 32",      \
 	x" Button 33",       \
 	x" Button 34",       \
 	x" Button 35",       \
@@ -77,17 +74,21 @@ const char *PSCButtonName[JOY_NAME_SIZE] = {
 	x" Button 57",       \
 	x" Button 58",       \
 	x" Button 59",       \
-	x" Button 60",
-        JOYSTICK_NAMES("P1")
-        JOYSTICK_NAMES("P2")
-        JOYSTICK_NAMES("P3")
-        JOYSTICK_NAMES("P4")
-        "undefined"
+    x" Button 60",       \
+    x" Button 61",       \
+    x" Button 62",       \
+    x" Button 63",       \
+    x" Button 64",
+        BUTTON_NAMES("P1")
+        BUTTON_NAMES("P2")
+        BUTTON_NAMES("P3")
+        BUTTON_NAMES("P4")
 };
 
+
 const char *JoystickKeyName[JOY_NAME_SIZE] = {
-	"...",
-    #define JOYSTICK_NAMES(x) \
+        "...",
+#define JOYSTICK_NAMES(x) \
 	x" Up",             \
 	x" Right",          \
 	x" Down",           \
@@ -152,10 +153,84 @@ const char *JoystickKeyName[JOY_NAME_SIZE] = {
 	x" Button 58",       \
 	x" Button 59",       \
 	x" Button 60",
-	JOYSTICK_NAMES("P1")
-	JOYSTICK_NAMES("P2")
-	JOYSTICK_NAMES("P3")
-	JOYSTICK_NAMES("P4")
+        JOYSTICK_NAMES("P1")
+        JOYSTICK_NAMES("P2")
+        JOYSTICK_NAMES("P3")
+        JOYSTICK_NAMES("P4")
+        "undefined"
+};
+
+const char *PSCKeyName[JOY_NAME_SIZE] = {
+	"...",
+    #define PSC_NAMES(x) \
+	x" Up",             \
+	x" Right",          \
+	x" Down",           \
+	x" Left",           \
+	x" ^",       \
+	x" O",       \
+	x" X",       \
+	x" []",       \
+	x" Button 5",       \
+	x" Button 6",       \
+	x" L1",       \
+	x" R1",       \
+	x" Select",       \
+	x" Start",      \
+	x" Button 11",       \
+	x" Button 12",       \
+	x" Button 13",       \
+	x" Button 14",       \
+	x" Button 15",       \
+	x" Button 16",       \
+	x" Button 17",       \
+	x" Button 18",       \
+	x" Button 19",       \
+	x" Button 20",       \
+	x" Button 21",       \
+	x" Button 22",       \
+	x" Button 23",       \
+	x" Button 24",       \
+	x" Button 25",       \
+	x" Button 26",       \
+	x" Button 27",       \
+	x" Button 28",       \
+	x" Button 29",       \
+	x" Button 30",       \
+	x" Button 31",       \
+	x" Button 32",       \
+	x" Button 33",       \
+	x" Button 34",       \
+	x" Button 35",       \
+	x" Button 36",       \
+	x" Button 37",       \
+	x" Button 38",       \
+	x" Button 39",       \
+	x" Button 40",       \
+	x" Button 41",       \
+	x" Button 42",       \
+	x" Button 43",       \
+	x" Button 44",       \
+	x" Button 45",       \
+	x" Button 46",       \
+	x" Button 47",       \
+	x" Button 48",       \
+	x" Button 49",       \
+	x" Button 50",       \
+	x" Button 51",       \
+	x" Button 52",       \
+	x" Button 53",       \
+	x" Button 54",       \
+	x" Button 55",       \
+	x" Button 56",       \
+	x" Button 57",       \
+	x" Button 58",       \
+	x" Button 59",       \
+	x" Button 60",
+    PSC_NAMES("P1")
+    PSC_NAMES("P2")
+    PSC_NAMES("P3")
+    PSC_NAMES("P4")
 	"undefined"
 };
 
@@ -298,19 +373,19 @@ const u64 JoystickBits[JOY_MAX_INPUTS + 1] = {
 	0x8000000000000000  // Button 60
 };
 
-const char* JoystickButtonNames[JOY_NAME_SIZE] = {
+const char* PSCButtonNames[JOY_NAME_SIZE] = {
 	"...",
-#define BUTTON_NAMES(x) \
-	x" Button 1",       \
-	x" Button 2",       \
-	x" Button 3",       \
-	x" Button 4",       \
+#define PSC_BUTTON_NAMES(x) \
+	x" ^",       \
+	x" O",       \
+	x" X",       \
+	x" []",       \
 	x" Button 5",       \
 	x" Button 6",       \
-	x" Button 7",       \
-	x" Button 8",       \
-	x" Button 9",       \
-	x" Button 10",      \
+	x" L1",       \
+	x" R1",       \
+	x" Select",       \
+	x" Start",      \
 	x" Button 11",      \
 	x" Button 12",      \
 	x" Button 13",      \
@@ -365,10 +440,10 @@ const char* JoystickButtonNames[JOY_NAME_SIZE] = {
     x" Button 62",       \
     x" Button 63",       \
     x" Button 64",
-	BUTTON_NAMES("P1")
-	BUTTON_NAMES("P2")
-	BUTTON_NAMES("P3")
-	BUTTON_NAMES("P4")
+    PSC_BUTTON_NAMES("P1")
+    PSC_BUTTON_NAMES("P2")
+    PSC_BUTTON_NAMES("P3")
+    PSC_BUTTON_NAMES("P4")
 };
 
 const char* JoystickAxisNames[JOY_NAME_SIZE] = {
@@ -519,14 +594,14 @@ const char* JoystickUnknownNames[JOY_NAME_SIZE] = {
 };
 
 // Numbering order: buttons, then axes, then hats
-const char* PC_GetJoystickKeyName(int portnum, int keynum)
+const char* PC_GetJoystickKeyName(int portnum, int keynum, bool isPSC)
 {
 	int keycode = (portnum*JOY_MAX_INPUTS) + keynum;
 	int firstAxis = joysticks[portnum].NumButtons;
 	int firstHat = firstAxis + (2*joysticks[portnum].NumAxes);
 	int firstUnknown = firstHat + (4*joysticks[portnum].NumHats);
 
-	     if (keynum < firstAxis+1)            return JoystickButtonNames[keycode];
+	     if (keynum < firstAxis+1)            return isPSC ? PSCButtonNames[keycode] : JoystickButtonNames[keycode];
 	else if (keynum < firstHat+1)             return JoystickAxisNames[keycode-firstAxis];
 	else if (keynum < firstUnknown+1)         return JoystickHatNames[keycode-firstHat];
 	else                                      return JoystickUnknownNames[keycode-firstUnknown];
