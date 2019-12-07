@@ -23,11 +23,21 @@ include_directories(${SDL2_INCLUDE_DIRS})
 	endif()
 endif()
 
+IF (NOT DEFINED _INPUTFIX)
+	SET(_INPUTFIX NO_INPUTFIX)
+ENDIF()
+
 find_package(Threads REQUIRED)
-add_definitions(-DSDL2 -DLINUX -DDEBUG -DSDL=1 -DOV_EXCLUDE_STATIC_CALLBACKS -DWEBM -DPSC )
- 
+add_definitions(-DSDL2 -DLINUX -DDEBUG -DSDL=1 -DOV_EXCLUDE_STATIC_CALLBACKS -DWEBM -DPSC -D${_INPUTFIX} )
+
+IF (${_INPUTFIX} MATCHES "INPUTFIX")
+	SET(TARGET_NAME OpenBOR-psc)
+ELSE()
+	SET(TARGET_NAME OpenBOR)
+ENDIF()
+
 add_executable(
-        OpenBOR
+        ${TARGET_NAME}
         openbor.c
         sdl/joysticks.c
         openborscript.c
@@ -119,7 +129,7 @@ add_executable(
 )
 
 
-target_include_directories(OpenBOR PUBLIC
+target_include_directories( ${TARGET_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/sdl>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/source>
@@ -137,7 +147,7 @@ target_include_directories(OpenBOR PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/source/webmlib>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/source/resources>  
 )
-target_link_libraries(OpenBOR
+target_link_libraries( ${TARGET_NAME}
          Threads::Threads
          SDL2
          SDL2_image
@@ -154,7 +164,7 @@ target_link_libraries(OpenBOR
 )
 add_custom_target(build-time-make-directory ALL
     COMMAND ${CMAKE_COMMAND} -E make_directory Logs
-  COMMAND ${CMAKE_COMMAND} -E make_directory Packs
+  COMMAND ${CMAKE_COMMAND} -E make_directory Paks
   COMMAND ${CMAKE_COMMAND} -E make_directory Saves
   COMMAND ${CMAKE_COMMAND} -E make_directory Screenshots
 )

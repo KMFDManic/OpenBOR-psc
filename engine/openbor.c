@@ -2437,7 +2437,7 @@ void clearbuttons(int player)
         savedata.keys[0][SDID_START]     = CONTROL_DEFAULT1_START;
         savedata.keys[0][SDID_SCREENSHOT] = CONTROL_DEFAULT1_SCREENSHOT;
 
-#if PSC
+#if INPUTFIX
 
         savedata.keys[0][SDID_MOVEUP]    = CONTROL_DEFAULT_PSC_UP;
         savedata.keys[0][SDID_MOVEDOWN]  = CONTROL_DEFAULT_PSC_DOWN;
@@ -2472,7 +2472,7 @@ void clearbuttons(int player)
         default_keys[SDID_START]     = CONTROL_DEFAULT1_START;
         default_keys[SDID_SCREENSHOT] = CONTROL_DEFAULT1_SCREENSHOT;
 
-#if PSC
+#if INPUTFIX
         default_keys[SDID_MOVEUP]    = CONTROL_DEFAULT_PSC_UP;
         default_keys[SDID_MOVEDOWN]  = CONTROL_DEFAULT_PSC_DOWN;
         default_keys[SDID_MOVELEFT]  = CONTROL_DEFAULT_PSC_LEFT;
@@ -2683,7 +2683,7 @@ void loadsettings()
 
     //savedata.keys;
 
-#if PSC
+#if INPUTFIX
     savedata.keys[0][SDID_MOVEUP]    = CONTROL_DEFAULT_PSC_UP;
     savedata.keys[0][SDID_MOVEDOWN]  = CONTROL_DEFAULT_PSC_DOWN;
     savedata.keys[0][SDID_MOVELEFT]  = CONTROL_DEFAULT_PSC_LEFT;
@@ -2723,7 +2723,7 @@ void loadfromdefault()
     }
     fread(&savedata, 1, sizeof(savedata), handle);
     fclose(handle);
-#if PSC
+#if INPUTFIX
     savedata.keys[0][SDID_MOVEUP]    = CONTROL_DEFAULT_PSC_UP;
     savedata.keys[0][SDID_MOVEDOWN]  = CONTROL_DEFAULT_PSC_DOWN;
     savedata.keys[0][SDID_MOVELEFT]  = CONTROL_DEFAULT_PSC_LEFT;

@@ -97,7 +97,7 @@ static void getAllLogs()
 	ptrdiff_t i, j, k;
 	for(i=0; i<2; i++)
 	{
-		logfile[i].buf = readFromLogFile(i);
+		logfile[i].buf = NULL;readFromLogFile(i);
 		if(logfile[i].buf != NULL)
 		{
 			logfile[i].pos = malloc(++logfile[i].rows * sizeof(int));
