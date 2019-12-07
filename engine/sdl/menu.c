@@ -18,7 +18,7 @@
 #include "stringptr.h"
 
 #include "pngdec.h"
-#include "../resources/OpenBOR_Logo_480x272-AB.png.h"
+#include "../resources/OpenBOR_Logo_480x272AB.png.h"
 #include "../resources/OpenBOR_Logo_320x240_png.h"
 #include "../resources/OpenBOR_Menu_480x272-AB.png.h"
 #include "../resources/OpenBOR_Menu_320x240_png.h"
@@ -455,6 +455,10 @@ static int ControlBGM()
 static void initMenu(int type)
 {
 
+#if PSC
+    isWide=true;
+
+#endif
 #ifdef ANDROID
 	isWide = (float)nativeHeight/(float)nativeWidth < 3.0f/4.0f;
 	isFull = 1;
@@ -477,19 +481,16 @@ static void initMenu(int type)
 	savedata.hwfilter = 1;
 #endif
 
-#if PSC
-	isWide=true;
 
-#endif
 	vscreen = allocscreen(videomodes.hRes, videomodes.vRes, PIXEL_32);
 
 	video_set_mode(videomodes);
 
 	// Read Logo or Menu from Array.
 	if(!type)
-		bgscreen = pngToScreen(isWide ? (void*) openbor_logo_480x272ab_png.data : (void*) openbor_logo_320x240_png.data);
+		bgscreen = pngToScreen(isWide ? (void*) openbor_logo_480x272ab_png.data : (void*) openbor_logo_480x272ab_png.data);
 	else
-		bgscreen = pngToScreen(isWide ? (void*) openbor_menu_480x272ab_png.data : (void*) openbor_menu_320x240_png.data);
+		bgscreen = pngToScreen(isWide ? (void*) openbor_menu_480x272ab_png.data : (void*) openbor_menu_480x272ab_png.data);
 	// CRxTRDude - Initialize log screen images
 	logscreen = pngToScreen(isWide ? (void*) logviewer_480x272_png.data : (void*) logviewer_320x240_png.data);
 
@@ -520,6 +521,7 @@ static void blit_video_menu(s_screen* vscreen)
 
 static void drawMenu()
 {
+    isWide = true;
 	char listing[45] = {""};
 	int list = 0;
 	int shift = 0;
