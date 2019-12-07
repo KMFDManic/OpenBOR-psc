@@ -178,7 +178,8 @@ static int findPaks(void)
 	if(dp != NULL)
    	{
 		while((ds = readdir(dp)) != NULL)
-		{
+        {
+            if (ds->d_name[0]=='.') continue;
 			if(packfile_supported(ds->d_name))
 			{
 				fileliststruct *copy = NULL;
