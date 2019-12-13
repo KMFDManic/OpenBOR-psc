@@ -1,0 +1,14 @@
+export CC=armv8-sony-linux-gnueabihf-gcc 
+export CXX=armv8-sony-linux-gnueabihf-g++
+export AS=armv8-sony-linux-gnueabihf-as
+export LD=armv8-sony-linux-gnueabihf-ld
+export RANLIB=armv8-sony-linux-gnueabihf-ranlib
+export STRIP=armv8-sony-linux-gnueabihf-strip
+export AR=armv8-sony-linux-gnueabihf-ar
+
+export CFLAGS="-I/home/screemer/x-tools/armv8-sony-linux-gnueabihf/armv8-sony-linux-gnueabihf/sysroot/usr/include"
+export LD=armv8-sony-linux-gnueabihf-ld
+
+./configure --target=armv7-linux-gcc --enable-static --disable-shared 
+make -j4
+

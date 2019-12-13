@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <locale.h>
 #include <math.h>
 
@@ -95,10 +95,10 @@ typedef void DIR;
 #define COPY_ROOT_PATH(buf, name) strncpy(buf, rootDir, strlen(rootDir)); strncat(buf, name, strlen(name)); strncat(buf, "/", 1);
 #define COPY_PAKS_PATH(buf, name) strncpy(buf, paksDir, strlen(paksDir)); strncat(buf, "/", 1); strncat(buf, name, strlen(name));
 #else
-#define CHECK_LOGFILE(type)  type ? fileExists("./Logs/OpenBorLog.txt") : fileExists("./Logs/ScriptLog.txt")
-#define OPEN_LOGFILE(type)   type ? fopen("./Logs/OpenBorLog.txt", "wt") : fopen("./Logs/ScriptLog.txt", "wt")
-#define APPEND_LOGFILE(type) type ? fopen("./Logs/OpenBorLog.txt", "at") : fopen("./Logs/ScriptLog.txt", "at")
-#define READ_LOGFILE(type)   type ? fopen("./Logs/OpenBorLog.txt", "rt") : fopen("./Logs/ScriptLog.txt", "rt")
+#define CHECK_LOGFILE(type)  type ? fileExists("./Logs/OpenBorLog.txt") : fileExists("/tmp/borScriptLog.txt")
+#define OPEN_LOGFILE(type)   type ? fopen("./Logs/OpenBorLog.txt", "wt") : fopen("/tmp/borScriptLog.txt", "wt")
+#define APPEND_LOGFILE(type) type ? fopen("./Logs/OpenBorLog.txt", "at") : fopen("/tmp/borScriptLog.txt", "at")
+#define READ_LOGFILE(type)   type ? fopen("./Logs/OpenBorLog.txt", "rt") : fopen("/tmp/borScriptLog.txt", "rt")
 #define COPY_ROOT_PATH(buf, name) strcpy(buf, "./"); strcat(buf, name); strcat(buf, "/");
 #define COPY_PAKS_PATH(buf, name) strcpy(buf, "./Paks/"); strcat(buf, name);
 #endif
@@ -253,6 +253,8 @@ void writeToLogFile(const char *msg, ...)
     va_end(arglist);
     fflush(stdout);
 #else
+
+#ifndef PSC
     if(openborLog == NULL)
     {
         openborLog = OPEN_LOGFILE(OPENBOR_LOG);
@@ -265,6 +267,12 @@ void writeToLogFile(const char *msg, ...)
     vfprintf(openborLog, msg, arglist);
     va_end(arglist);
     fflush(openborLog);
+#else
+    va_start(arglist, msg);
+    vfprintf(stdout, msg, arglist);
+    va_end(arglist);
+    fflush(stdout);
+#endif
 #endif
 }
 
@@ -304,7 +312,7 @@ void *checkAlloc(void *ptr, size_t size, const char *func, const char *file, int
         writeToLogFile("Out of memory!\n");
         writeToLogFile("Allocation of size %i failed in function '%s' at %s:%i.\n", size, func, file, line);
 #ifndef WIN
-        writeToLogFile("Memory usage at exit: %u\n", mallinfo().arena);
+      //  writeToLogFile("Memory usage at exit: %u\n", mallinfo().arena);
 #endif
         borExit(2);
     }

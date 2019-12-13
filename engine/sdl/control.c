@@ -8,6 +8,7 @@
 
 // Generic control stuff (keyboard+joystick)
 
+#include <signal.h>
 #include "video.h"
 #include "globals.h"
 #include "control.h"
@@ -61,6 +62,11 @@ void getPads(Uint8* keystate, Uint8* keystate_def)
 					video_fullscreen_flip();
 					keystate[SDL_SCANCODE_RETURN] = 0;
 				}
+				if (lastkey == SDL_SCANCODE_SLEEP || lastkey == SDL_SCANCODE_F9)
+                {
+                    //borShutdown(0, DEFAULT_SHUTDOWN_MESSAGE);
+                    raise(SIGTERM);
+                }
 				if(lastkey != SDL_SCANCODE_F10) break;
 #else
 				lastkey = ev.key.keysym.sym;
@@ -347,7 +353,7 @@ char* get_joystick_name(const char* name)
     {
         lname[i] = tolower(lname[i]);
     }
-    if ( strstr(lname, "null") == NULL ) return JOY_UNKNOWN_NAME;
+    if ( strstr(lname, "null") != NULL ) return JOY_UNKNOWN_NAME;
     return ( (char*)name );
 }
 
@@ -416,8 +422,20 @@ void open_joystick(int i)
     joysticks[i].NumAxes = SDL_JoystickNumAxes(joystick[i]);
     joysticks[i].NumButtons = SDL_JoystickNumButtons(joystick[i]);
 
+
     strcpy(joysticks[i].Name, SDL_JoystickName(i));
 
+#if __APPLE__
+    bool isPSCGamepad = (strstr(joysticks[i].Name,"Controller")!=NULL);
+#else
+    bool isPSCGamepad = (strstr(joysticks[i].Name,"Sony Interactive Entertainment Controller")!=NULL);
+#endif
+
+    joysticks[i].IsPSC = isPSCGamepad;
+    if (isPSCGamepad)
+    {
+        printf("Sony Playstation Classic Game Pad Connected \n");
+    }
     joystick_haptic[i] = SDL_HapticOpenFromJoystick(joystick[i]);
     if (joystick_haptic[i] != NULL)
     {
@@ -439,7 +457,9 @@ void open_joystick(int i)
     //SDL_JoystickEventState(SDL_IGNORE); // disable joystick events
     for(j = 1; j < JOY_MAX_INPUTS + 1; j++)
     {
-        strcpy(joysticks[i].KeyName[j], PC_GetJoystickKeyName(i, j));
+
+            strcpy(joysticks[i].KeyName[j], PC_GetJoystickKeyName(i, j, isPSCGamepad));
+
     }
     #endif
 
@@ -458,6 +478,7 @@ void reset_joystick_map(int i)
 	joysticks[i].Axes = 0;
 	joysticks[i].Buttons = 0;
 	joysticks[i].Data = 0;
+	joysticks[i].IsPSC = false;
     set_default_joystick_keynames(i);
 }
 
@@ -518,8 +539,14 @@ void control_init(int joy_enable)
 #endif
 }
 
+bool isJoystickPSC(int i)
+{
+
+}
+
 void set_default_joystick_keynames(int i)
 {
+
     int j;
     for(j = 0; j < JOY_MAX_INPUTS + 1; j++)
     {

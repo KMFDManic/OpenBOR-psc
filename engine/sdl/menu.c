@@ -18,9 +18,9 @@
 #include "stringptr.h"
 
 #include "pngdec.h"
-#include "../resources/OpenBOR_Logo_480x272_png.h"
+#include "../resources/OpenBOR_Logo_480x272AB.png.h"
 #include "../resources/OpenBOR_Logo_320x240_png.h"
-#include "../resources/OpenBOR_Menu_480x272_png.h"
+#include "../resources/OpenBOR_Menu_480x272-AB.png.h"
 #include "../resources/OpenBOR_Menu_320x240_png.h"
 // CRxTRDude - Added the log screen pngs
 #include "../resources/logviewer_480x272_png.h"
@@ -97,7 +97,7 @@ static void getAllLogs()
 	ptrdiff_t i, j, k;
 	for(i=0; i<2; i++)
 	{
-		logfile[i].buf = readFromLogFile(i);
+		logfile[i].buf = NULL;//readFromLogFile(i);
 		if(logfile[i].buf != NULL)
 		{
 			logfile[i].pos = malloc(++logfile[i].rows * sizeof(int));
@@ -178,7 +178,8 @@ static int findPaks(void)
 	if(dp != NULL)
    	{
 		while((ds = readdir(dp)) != NULL)
-		{
+        {
+            if (ds->d_name[0]=='.') continue;
 			if(packfile_supported(ds->d_name))
 			{
 				fileliststruct *copy = NULL;
@@ -358,7 +359,7 @@ static int ControlMenu()
 
 		case FLAG_JUMP:
 			//drawLogs();
-			status = 3;
+			//status = 3;
 			break;
 
 		default:
@@ -454,12 +455,17 @@ static int ControlBGM()
 static void initMenu(int type)
 {
 
+#if PSC
+    isWide=true;
+
+#endif
 #ifdef ANDROID
 	isWide = (float)nativeHeight/(float)nativeWidth < 3.0f/4.0f;
 	isFull = 1;
 	bpp = 32;
 	savedata.hwscale = 0.0f;
 #endif
+
 
 	pixelformat = PIXEL_x8;
 
@@ -474,15 +480,17 @@ static void initMenu(int type)
 	savedata.hwscale = 2.0f;
 	savedata.hwfilter = 1;
 #endif
+
+
 	vscreen = allocscreen(videomodes.hRes, videomodes.vRes, PIXEL_32);
 
 	video_set_mode(videomodes);
 
 	// Read Logo or Menu from Array.
 	if(!type)
-		bgscreen = pngToScreen(isWide ? (void*) openbor_logo_480x272_png.data : (void*) openbor_logo_320x240_png.data);
+		bgscreen = pngToScreen(isWide ? (void*) openbor_logo_480x272ab_png.data : (void*) openbor_logo_480x272ab_png.data);
 	else
-		bgscreen = pngToScreen(isWide ? (void*) openbor_menu_480x272_png.data : (void*) openbor_menu_320x240_png.data);
+		bgscreen = pngToScreen(isWide ? (void*) openbor_menu_480x272ab_png.data : (void*) openbor_menu_480x272ab_png.data);
 	// CRxTRDude - Initialize log screen images
 	logscreen = pngToScreen(isWide ? (void*) logviewer_480x272_png.data : (void*) logviewer_320x240_png.data);
 
@@ -513,6 +521,7 @@ static void blit_video_menu(s_screen* vscreen)
 
 static void drawMenu()
 {
+    isWide = true;
 	char listing[45] = {""};
 	int list = 0;
 	int shift = 0;
@@ -527,7 +536,7 @@ static void drawMenu()
 		{
 		    int len = strlen(filelist[list+dListScrollPosition].filename)-4;
 			shift = 0;
-			colors = GRAY;
+			colors = BLACK;
 			strncpy(listing, "", (isWide ? 44 : 28));
 			if(len < (isWide ? 44 : 28))
                 safe_strncpy(listing, filelist[list+dListScrollPosition].filename, len);
@@ -543,7 +552,7 @@ static void drawMenu()
 		}
 	}
 
-	printText((isWide ? 26 : 5), (isWide ? 11 : 4), WHITE, 0, 0, "OpenBoR %s", VERSION);
+    printText((isWide ? 26 : 5), (isWide ? 11 : 4), WHITE, 0, 0, "OpenBoR-PSC Xtreme %s", VERSION);
 	printText((isWide ? 392 : 261),(isWide ? 11 : 4), WHITE, 0, 0, __DATE__);
 		//CRxTRDude - Fix for Android's text - Main menu
 #ifdef ANDROID
@@ -554,12 +563,12 @@ static void drawMenu()
 #else
 	printText((isWide ? 23 : 4),(isWide ? 251 : 226), WHITE, 0, 0, "%s: Start Game", control_getkeyname(savedata.keys[0][SDID_ATTACK]));
 	printText((isWide ? 150 : 84),(isWide ? 251 : 226), WHITE, 0, 0, "%s: BGM Player", control_getkeyname(savedata.keys[0][SDID_ATTACK2]));
-	printText((isWide ? 270 : 164),(isWide ? 251 : 226), WHITE, 0, 0, "%s: View Logs", control_getkeyname(savedata.keys[0][SDID_JUMP]));
+	//printText((isWide ? 270 : 164),(isWide ? 251 : 226), WHITE, 0, 0, "%s: View Logs", control_getkeyname(savedata.keys[0][SDID_JUMP]));
 	printText((isWide ? 390 : 244),(isWide ? 251 : 226), WHITE, 0, 0, "%s: Quit Game", control_getkeyname(savedata.keys[0][SDID_SPECIAL]));
 #endif
 	//CRxTRDude - Fixed the placement of these texts and appropriately changed the site for Chrono Crash
   printText((isWide ? 320 : 188),(isWide ? 175 : 158), BLACK, 0, 0, "www.chronocrash.com");
-	printText((isWide ? 322 : 190),(isWide ? 185 : 168), BLACK, 0, 0, "www.SenileTeam.com");
+	printText((isWide ? 322 : 190),(isWide ? 185 : 168), BLACK, 0, 0, "www.AutoBleem.tk");
 
 #ifdef SPK_SUPPORTED
 	printText((isWide ? 324 : 192),(isWide ? 191 : 176), DARK_RED, 0, 0, "SecurePAK Edition");
@@ -605,7 +614,7 @@ static void drawBGMPlayer()
 		}
 	}
 
-	printText((isWide ? 26 : 5), (isWide ? 11 : 4), WHITE, 0, 0, "OpenBoR %s", VERSION);
+	printText((isWide ? 26 : 5), (isWide ? 11 : 4), WHITE, 0, 0, "OpenBoR-PSC Xtreme %s", VERSION);
 	printText((isWide ? 392 : 261),(isWide ? 11 : 4), WHITE, 0, 0, __DATE__);
 //CRxTRDude - Fix for Android's text - BGM MODE
 #ifdef ANDROID

@@ -77,8 +77,6 @@ BUILD_SDL       = 1
 BUILD_GFX       = 1
 BUILD_PTHREAD   = 1
 BUILD_SDL_IO    = 1
-BUILD_OPENGL    = 1
-BUILD_LOADGL    = 1
 BUILD_VORBIS    = 1
 BUILD_WEBM      = 1
 BUILDING        = 1
@@ -665,7 +663,7 @@ all : $(TARGET) $(TARGET_FINAL)
 	@$(YASM) -D $(TARGET_PLATFORM) -f $(OBJTYPE) -m $(TARGET_ARCH) -o $@ $<
 %.o : %.c
 	@echo Compiling $(TARGET_PLATFORM) Port: $<...
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) -v $(CFLAGS) -c $< -o $@
 $(TARGET) : $(OBJS) $(RES)
 	@echo
 	@echo Linking $(TARGET_PLATFORM) Port: $(TARGET)...

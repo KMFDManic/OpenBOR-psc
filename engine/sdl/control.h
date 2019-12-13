@@ -49,7 +49,23 @@
 	#define	CONTROL_DEFAULT1_ESC        (JOY_LIST_FIRST + 15)
 #else
 #ifdef SDL2
-	#define	CONTROL_ESC                 SDL_SCANCODE_ESCAPE
+
+#define	CONTROL_ESC                 SDL_SCANCODE_ESCAPE
+
+#define	CONTROL_DEFAULT_PSC_START	/* Start*/	610  /* start */
+#define	CONTROL_DEFAULT_PSC_UP         613   /* up */
+#define	CONTROL_DEFAULT_PSC_DOWN		614  /* down */
+#define	CONTROL_DEFAULT_PSC_LEFT		611  /* left */
+#define	CONTROL_DEFAULT_PSC_RIGHT		612  /* right */
+#define	CONTROL_DEFAULT_PSC_FIRE1	/* Attack1 */	603  /* X */
+#define	CONTROL_DEFAULT_PSC_FIRE2	/* Attack2 */	602  /* O */
+#define	CONTROL_DEFAULT_PSC_FIRE3	/* Attack3 */	604  /* [] */
+#define	CONTROL_DEFAULT_PSC_FIRE4	/* Attack4 */	601  /* ^ */
+#define	CONTROL_DEFAULT_PSC_FIRE5	/* Jump */	    607   /* L1 */
+#define	CONTROL_DEFAULT_PSC_FIRE6	/* Special */	608  /* R1 */
+#define	CONTROL_DEFAULT_PSC_SCREENSHOT	609  /* select */
+#define	CONTROL_DEFAULT_PSC_ESC        605
+
 	#define	CONTROL_DEFAULT1_START		SDL_SCANCODE_RETURN
 	#define	CONTROL_DEFAULT1_UP         SDL_SCANCODE_UP
 	#define	CONTROL_DEFAULT1_DOWN		SDL_SCANCODE_DOWN
@@ -63,6 +79,7 @@
 	#define	CONTROL_DEFAULT1_FIRE6		SDL_SCANCODE_F
 	#define	CONTROL_DEFAULT1_SCREENSHOT	SDL_SCANCODE_F12
 	#define	CONTROL_DEFAULT1_ESC        SDL_SCANCODE_ESCAPE
+
 #else
 	#define	CONTROL_ESC                 SDLK_ESCAPE
 	#define	CONTROL_DEFAULT1_START		SDLK_RETURN
